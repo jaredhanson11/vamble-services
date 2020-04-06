@@ -4,7 +4,6 @@ Setup Flask objects.
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_restful import Api
-from streamt_web.jwt_auth import JWTManager
 
 from .controllers import heartbeat
 

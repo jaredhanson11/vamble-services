@@ -2,7 +2,7 @@
 This package contains the Flask REST Api for the Vamble API module.
 '''
 
-from vamble_web import flask_setup, jwt_auth
+from vamble_web import flask_setup
 
 app = flask_setup.create_app(__name__)
 db = flask_setup.create_db(app)
