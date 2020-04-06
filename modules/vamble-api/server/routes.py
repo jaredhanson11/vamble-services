@@ -2,6 +2,7 @@
 Setup all the api routes in add_routes(api) method.
 '''
 from flask_restful import Api
+from .controllers.test import TestController
 
 
 def v1_url(path: str) -> str:
@@ -14,4 +15,4 @@ def add_routes(api: Api):
     '''
     Sets up all the api routes.
     '''
-    pass
+    api.add_resource(TestController, v1_url('/test'))
