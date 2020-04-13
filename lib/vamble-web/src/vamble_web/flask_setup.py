@@ -4,6 +4,7 @@ Setup Flask objects.
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_restful import Api
+from vamble_web.jwt_auth import JWTManager
 
 from .controllers import heartbeat
 
@@ -29,3 +30,11 @@ def create_api(app) -> Api:
     api = Api(app)
     api.add_resource(heartbeat.HeartbeatController, '/hb')
     return api
+
+
+def create_jwt(app) -> JWTManager:
+    '''
+    Initialized JWTManager object from Flask-JWT-Extended.
+    '''
+    jwt = JWTManager(app)
+    return jwt

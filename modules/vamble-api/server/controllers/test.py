@@ -2,16 +2,16 @@ from . import db
 from flask_restful import Resource
 
 from vamble_web import responses
-from vamble_core.user_manager import UserManager
+from vamble_core.account_manager import AccountManager
 
 
 class TestController(Resource):
     '''Test controller'''
 
-    user_manager = UserManager(db.session)
+    account_manager = AccountManager(db.session)
 
     def get(self):
-        return responses.success({'num': self.user_manager.get_num_users()})
+        return responses.success({'num': self.account_manager.get_num_users()})
 
     def post(self):
-        return responses.success({'id': self.user_manager.add_user().id})
+        return responses.success({'id': self.account_manager.add_user().id})
