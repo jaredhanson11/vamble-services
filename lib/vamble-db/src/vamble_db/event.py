@@ -15,9 +15,9 @@ class Event(base.Base):
     # Relationships
     esport_id = Column(Integer, ForeignKey('esports.id'))
     esport = relationship('ESport', back_populates='events')
-    children_events = relationship(
-        'Event', back_populates='parent_event', remote_side=[id])
-    parent_event = relationship('Event', back_populates='children_events')
+    children_events = relationship('Event', back_populates='parent_event')
+    parent_event = relationship(
+        'Event', back_populates='children_events', remote_side=[id])
     parent_event_id = Column(Integer, ForeignKey('events.id'), nullable=True)
     teams = relationship('TeamToEvent')
     bets = relationship('Bet', back_populates='event')
@@ -29,4 +29,4 @@ class TeamToEvent(base.Base):
 
     team_id = Column(Integer, ForeignKey('teams.id'), primary_key=True)
     event_id = Column(Integer, ForeignKey('events.id'), primary_key=True)
-    rank = Column(Integer)
+    rank = Column(Integer, nullable=False)
