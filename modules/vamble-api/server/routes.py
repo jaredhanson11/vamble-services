@@ -4,6 +4,8 @@ Setup all the api routes in add_routes(api) method.
 from flask_restful import Api
 from .controllers.login import LoginController, SignupController
 from .controllers.test import TestController
+from .controllers.esport import ESportListController, ESportController
+from .controllers.event import EventListController, EventController
 
 
 def v1_url(path: str) -> str:
@@ -19,3 +21,9 @@ def add_routes(api: Api):
     api.add_resource(TestController, v1_url('/test'))
     api.add_resource(LoginController, v1_url('/login'))
     api.add_resource(SignupController, v1_url('/signup'))
+
+    api.add_resource(ESportListController, v1_url('/esports'))
+    api.add_resource(ESportController, v1_url('/esports/<int:id>'))
+
+    api.add_resource(EventListController, v1_url('/events'))
+    api.add_resource(EventController, v1_url('/events/<int:id>'))
