@@ -14,10 +14,13 @@ class Event(base.Base):
 
     # Relationships
     esport_id = Column(Integer, ForeignKey('esports.id'))
-    esport = relationship('Esport', back_populates='events')
-    children_events = relationship('Event', back_populates='parent_event')
+    esport = relationship('ESport', back_populates='events')
+    children_events = relationship(
+        'Event', back_populates='parent_event', remote_side=[id])
+    parent_event = relationship('Event', back_populates='children_events')
     parent_event_id = Column(Integer, ForeignKey('events.id'), nullable=True)
     teams = relationship('TeamToEvent')
+    bets = relationship('Bet', back_populates='event')
 
 
 class TeamToEvent(base.Base):
