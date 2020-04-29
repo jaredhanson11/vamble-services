@@ -19,7 +19,7 @@ class Bet(base.Base):
     bet_type_id = Column(Integer, ForeignKey('bet_types.id'))
     bet_type = relationship('BetType')
 
-    bet_odds = relationship('BetOdds')
+    bet_odds = relationship('BetOdds', order_by="desc(BetOdds.created_at)")
 
     event_id = Column(Integer, ForeignKey('events.id'))
     event = relationship('Event', back_populates='bets')

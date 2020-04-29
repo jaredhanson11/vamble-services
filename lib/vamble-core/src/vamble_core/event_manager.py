@@ -38,7 +38,8 @@ class EventManager:
             map(lambda e: e.id, event.children_events))
         _event['parent_event_id'] = event.parent_event_id
         _event['teams_ids'] = list(
-            map(lambda t2e: EventManager.get_team_to_event_model(t2e), event.teams))
+            map(lambda t2e: EventManager.get_team_to_event_model(t2e),
+                event.teams))
         return _event
 
     @staticmethod
