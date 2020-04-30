@@ -21,6 +21,14 @@ class ESportListController(Resource):
         '''GET /esports'''
         return responses.success(esport_manager.get_esports())
 
+    def post(self):
+    	'''POST /esports'''
+    	post_data = request.get_json()
+    	name = post_data.get('name')
+    	description = post_data.get('description')
+    	new_esport = esport_manager.create_esport(name, description)
+    	return responses.success(new_esport, 204)
+
 
 class ESportController(Resource):
     def get(self, id):
