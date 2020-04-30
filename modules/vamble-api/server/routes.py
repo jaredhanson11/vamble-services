@@ -5,7 +5,7 @@ from flask_restful import Api
 from .controllers.login import LoginController, SignupController
 from .controllers.test import TestController
 from .controllers.esport import ESportListController, ESportController
-from .controllers.event import EventListController, EventController
+from .controllers.event import EventListController, EventController, TeamListController, TeamController
 from .controllers.bet import BetListController, BetController, \
     BetTypeController, BetOddsController, BetConditionController
 
@@ -34,6 +34,10 @@ def add_routes(api: Api):
     # Events
     api.add_resource(EventListController, v1_url('/events'))
     api.add_resource(EventController, v1_url('/events/<int:id>'))
+
+    # Teams
+    api.add_resource(TeamListController, v1_url('/teams'))
+    api.add_resource(TeamController, v1_url('/teams/<int:id>'))
 
     # Bets + related
     api.add_resource(BetListController, v1_url('/bets'))
