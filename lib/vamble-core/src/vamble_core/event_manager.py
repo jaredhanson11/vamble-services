@@ -54,7 +54,7 @@ class EventManager:
 
 class TeamManager:
     '''
-    Class for managing events.
+    Class for managing teams.
     '''
     session = None  # DB session
 
@@ -62,20 +62,20 @@ class TeamManager:
         self.session = db_session
 
     def get_teams(self):
-        '''Get all events'''
-        teams = list(map(lambda event: self.get_team_model(
-            event), self.session.query(Team).all()))
+        '''Get all teams'''
+        teams = list(map(lambda team: self.get_team_model(
+            team), self.session.query(Team).all()))
         return teams
 
     def get_team(self, team_id: int):
-        '''Get event by id'''
+        '''Get team by id'''
         team = self.session.query(Team).get(team_id)
         if team:
             return self.get_team_model(team)
 
     @staticmethod
     def get_team_model(team: Team):
-        '''Get API safe model for event'''
+        '''Get API safe model for team'''
         _team = {}
         _team['id'] = team.id
         _team['name'] = team.name
