@@ -1,7 +1,7 @@
 import logging
 
 from vamble_db.event import Event, TeamToEvent
-from vamble_db.esport import Team
+from vamble_db.esport import Team, ESport
 
 logger = logging.getLogger(__name__)
 
@@ -26,6 +26,25 @@ class EventManager:
         event = self.session.query(Event).get(event_id)
         if event:
             return self.get_event_model(event)
+
+    def create_event(self, name, description, esport_name, parent_event_name, team_names, ranks):
+        '''Creates and returns a new team record.'''
+        new_event = Event()
+        new_event.name = name
+        new_event.description = description
+        # query IDs for esport, parent event
+        new_event.esport_id = self.session.query(ESport).filter_by(name=esport_name).first().id
+        new_event.parent_event_id = self.session.query(Event).filter_by(name=parent_event_name).first().id
+        self.session.add(new_event)
+        for i in range(len(team_names)):
+            team_name, rank = team_names[i], ranks[i]
+            new_team = TeamToEvent()
+            new_team.team_id = self.session.query(Team).filter_by(name=team_name).first().id
+            new_team.event_id = new_event.id
+            new_team.rank = rank
+            self.session.add(new_team)
+        self.session.commit()
+        return self.get_event_model(new_event)
 
     @staticmethod
     def get_event_model(event: Event):
@@ -72,6 +91,14 @@ class TeamManager:
         team = self.session.query(Team).get(team_id)
         if team:
             return self.get_team_model(team)
+
+    def create_team(self, name):
+        '''Creates and returns a new team record.'''
+        new_team = Team()
+        new_team.name = name
+        self.session.add(new_team)
+        self.session.commit()
+        return self.get_team_model(new_team)
 
     @staticmethod
     def get_team_model(team: Team):
