@@ -23,6 +23,18 @@ class EventListController(Resource):
         '''GET /events'''
         return responses.success(event_manager.get_events())
 
+    def post(self):
+    	'''POST /events'''
+    	post_data = request.get_json()
+    	name = post_data.get('name')
+    	description = post_data.get('description')
+    	esport_name = post_data.get('esport_name')
+    	parent_event_name = post_data.get('parent_event_name')
+    	team_names = post_data.get('teams')
+    	ranks = post_data.get('ranks')
+    	new_event = event_manager.create_event(name, description, esport_name, parent_event_name, team_names, ranks)
+    	return responses.success(new_event, 204)
+
 
 class EventController(Resource):
     def get(self, id):
@@ -37,6 +49,13 @@ class TeamListController(Resource):
 	def get(self):
 		'''GET /teams'''
 		return responses.success(team_manager.get_teams())
+
+	def post(self):
+		'''POST /teams'''
+		post_data = request.get_json()
+		name = post_data.get('name')
+		new_team = team_manager.create_team(name)
+		return responses.success(new_team, 204)
 
 
 class TeamController(Resource):
